@@ -15,6 +15,10 @@ package com.exploid
 		
 		public var maxVelocity:ExVector;
 		
+		public var isSolid:Boolean;
+		
+		public var radius:Number;
+		
 		public function ExParticle(x:Number = 0, y:Number = 0)
 		{
 			super(x, y);
@@ -22,6 +26,8 @@ package com.exploid
 			this.velocity = new ExVector();
 			this.acceleration = new ExVector();
 			this.maxVelocity = new ExVector(1000, 1000);
+			this.isSolid = false;
+			this.radius = 5;
 		}
 		
 		/**

@@ -31,11 +31,9 @@ package com.exploid
 			g.lineStyle(1, lineColor);
 			
 			for each(var obj:ExParticle in group.members) {
-				g.drawCircle(obj.x, obj.y, 10);
-				g.moveTo(obj.x - 2, obj.y);
-				g.lineTo(obj.x + 3, obj.y);
-				g.moveTo(obj.x, obj.y - 2);
-				g.lineTo(obj.x, obj.y + 3);
+				g.drawCircle(obj.x, obj.y, obj.radius);
+				g.moveTo(obj.x, obj.y);
+				g.lineTo(obj.x + obj.velocity.x, obj.y + obj.velocity.y);
 			}
 		}
 	}
