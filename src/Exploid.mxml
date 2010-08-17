@@ -3,7 +3,7 @@
 	
 	<mx:Script>
 		<![CDATA[
-			import com.exploid.emitters.ExInput;
+			import com.exploid.ExInput;
 			import com.exploid.ExParticle;
 			import com.exploid.ExGlobal;
 			import com.exploid.ExGame;

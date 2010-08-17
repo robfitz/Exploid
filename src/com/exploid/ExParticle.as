@@ -11,6 +11,8 @@ package com.exploid
 		
 		public static const ST_NONE:String = "none";
 		public static const ST_DEAD:String = "dead";
+		public static const ST_EXPLODE:String = "start exploding";
+		public static const ST_ALIVE:String = "alive";
 		
 		public var velocity:ExVector;
 		
@@ -24,6 +26,12 @@ package com.exploid
 		
 		private var _state:String;
 		
+		public var lifetime:Number;
+		
+		public var age:Number; 
+		
+		public var canAge:Boolean;
+		
 		public function ExParticle(x:Number = 0, y:Number = 0)
 		{
 			super(x, y);
@@ -33,13 +41,23 @@ package com.exploid
 			this.maxVelocity = new ExVector(1000, 1000);
 			this.isSolid = false;
 			this.radius = 10;
-			this.state = ST_NONE;
+			this.state = ST_ALIVE;
+			this.lifetime = 0;
+			this.age = 0;
+			this.canAge = false;
 		}
 		
 		/**
 		 * Update the objects position and state
 		 */
 		public function update():void {
+			if(this.canAge) {
+				this.age += ExGlobal.elapsed;
+				if(this.age >= this.lifetime) {
+					this.state = ST_DEAD;
+				}
+			}
+			
 			velocity.x += acceleration.x * ExGlobal.elapsed;
 			velocity.y += acceleration.y * ExGlobal.elapsed;
 			
@@ -64,11 +82,11 @@ package com.exploid
 			var radii:Number = this.radius + target.radius;
 			
 			if(dx * dx + dy * dy - radii * radii <= 0) {
-				this.reportCollision();
+				this.reportCollision(target);
 			}
 		}
 		
-		protected function reportCollision():void {
+		protected function reportCollision(target:ExParticle):void {
 			
 		}
 		

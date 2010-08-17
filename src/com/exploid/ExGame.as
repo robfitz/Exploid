@@ -1,7 +1,6 @@
 package com.exploid
 {
 	import com.exploid.emitters.EnemyEmitter;
-	import com.exploid.emitters.ExInput;
 	
 	import flash.display.Sprite;
 	import flash.events.Event;

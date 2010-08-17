@@ -1,5 +1,7 @@
 package com.exploid
 {
+	import com.exploid.particles.Explosion;
+	
 	/**
 	 * Group series of game objects. 
 	 * @author devin
@@ -54,12 +56,34 @@ package com.exploid
 			}
 		}
 		
+		private function updateStates():void {
+			var subject:ExParticle;
+			var saved:Array = [];
+			
+			for(var i:uint = 0; i < this.members.length; i ++) {
+				subject = this.members[i] as ExParticle;
+				
+				if(subject.state != ExParticle.ST_DEAD) {
+					
+					if (subject.state == ExParticle.ST_EXPLODE) {
+						// need to cull this guy out and replace him with an explosion!
+						var ex:Explosion = Explosion.explosionFromParticle(subject);
+						saved.push(ex);
+					} else {
+						saved.push(subject);
+					}
+				}
+			}
+			this.members = saved;
+		}
+		
 		/**
 		 * Update the group state and motion
 		 */
 		public function update():void {
 			this.updateMotion();
 			this.updateCollision();
+			this.updateStates();
 		}
 	}
 }
