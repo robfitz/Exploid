@@ -1,6 +1,5 @@
 package com.exploid
 {
-	import com.exploid.emitters.ExInput;
 	
 	import flash.display.Graphics;
 	

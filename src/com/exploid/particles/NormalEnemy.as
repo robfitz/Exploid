@@ -8,6 +8,7 @@ package com.exploid.particles
 		public function NormalEnemy(x:Number=0, y:Number=0)
 		{
 			super(x, y);
+			this.state = ExParticle.ST_ALIVE;
 		}
 	}
 }

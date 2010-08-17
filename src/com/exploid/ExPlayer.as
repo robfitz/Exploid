@@ -5,16 +5,12 @@ package com.exploid
 	public class ExPlayer extends ExParticle
 	{
 		
-		public static const ST_ALIVE:String = "alive";
-		
 		public function ExPlayer(x:Number=0, y:Number=0)
 		{
 			super(x, y);
 			this.isSolid = true;
 			this.state = ST_ALIVE;
 		}
-		
-		
 		
 		override public function update():void {
 			if(this.state == ST_ALIVE) {
@@ -30,6 +26,10 @@ package com.exploid
 				if(ExGlobal.input.isPressed(Keyboard.UP)) {
 					this.y -= 5;
 				}
+				
+				if(ExGlobal.input.isPressed(Keyboard.SPACE)) {
+					this.state = ExParticle.ST_EXPLODE;
+				}
 			}
 			
 			super.update();
@@ -40,7 +40,7 @@ package com.exploid
 			super.state = newState;
 			
 			switch(this.state) {
-				case ST_ALIVE:
+				case ExParticle.ST_ALIVE:
 					break;
 				case ExParticle.ST_DEAD:
 					break;
@@ -50,7 +50,7 @@ package com.exploid
 		/**
 		 * Called when the player collides with any particle 
 		 */		
-		override protected function reportCollision():void {
+		override protected function reportCollision(target:ExParticle):void {
 			this.state = ExParticle.ST_DEAD;
 			this.isSolid = false;
 		}

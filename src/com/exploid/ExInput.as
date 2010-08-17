@@ -1,4 +1,4 @@
-package com.exploid.emitters
+package com.exploid
 {
 	import flash.display.Stage;
 	import flash.events.KeyboardEvent;

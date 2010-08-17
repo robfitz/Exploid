@@ -3,7 +3,7 @@ package com.exploid.emitters
 	import com.exploid.ExEmitter;
 	import com.exploid.ExGlobal;
 	import com.exploid.ExLevel;
-	import com.exploid.ExParticle;
+	import com.exploid.particles.NormalEnemy;
 	
 	public class EnemyEmitter extends ExEmitter
 	{
@@ -56,7 +56,7 @@ package com.exploid.emitters
 			var vx:Number = v * Math.cos(angle);
 			var vy:Number = v * Math.sin(angle);
 			
-			for each (var p:ExParticle in enemy) {
+			for each (var p:NormalEnemy in enemy) {
 				p.x += x;
 				p.y += y;
 				p.velocity.x = vx;
@@ -69,7 +69,7 @@ package com.exploid.emitters
 		private function rotate(particles:Array, angle:Number):void {
 			angle += Math.PI / 2;
 			
-			for each (var p:ExParticle in particles) {
+			for each (var p:NormalEnemy in particles) {
 				//rotate around 0,0
 				var len:Number = Math.sqrt(p.x*p.x + p.y*p.y);
 				var old_angle:Number = Math.atan2(p.y, p.x);
@@ -89,30 +89,30 @@ package com.exploid.emitters
 			var rand:Number = Math.random();
 			if (rand < .6) { 
 				//lonely dot
-				particles = [new ExParticle(0, 0)];
+				particles = [new NormalEnemy(0, 0)];
 			}
 			else if (rand < .8) {
 				//cross	
-				particles = [new ExParticle(0, 0), //center
-							new ExParticle(-SPACING, 0), //left
-							new ExParticle(SPACING, 0), //right
-							new ExParticle(0, -SPACING), //top
-							new ExParticle(0, SPACING)]; //bottom
+				particles = [new NormalEnemy(0, 0), //center
+							new NormalEnemy(-SPACING, 0), //left
+							new NormalEnemy(SPACING, 0), //right
+							new NormalEnemy(0, -SPACING), //top
+							new NormalEnemy(0, SPACING)]; //bottom
 							
 			}
 			else if (rand < .9) {
 				//3-piece triangle
-				particles = [new ExParticle(0, 0), //center
-							new ExParticle(-SPACING, SPACING), //down left
-							new ExParticle(SPACING, SPACING)]; //down right
+				particles = [new NormalEnemy(0, 0), //center
+							new NormalEnemy(-SPACING, SPACING), //down left
+							new NormalEnemy(SPACING, SPACING)]; //down right
 			}
 			else if (rand < 1) {
 				//flying V
-				particles = [new ExParticle(0, 0), //center
-							new ExParticle(-SPACING, SPACING), //down left
-							new ExParticle(SPACING, SPACING), //down right 
-							new ExParticle(-SPACING * 2, SPACING * 2), //down left x 2
-							new ExParticle(SPACING * 2, SPACING * 2)]; //down right x 2
+				particles = [new NormalEnemy(0, 0), //center
+							new NormalEnemy(-SPACING, SPACING), //down left
+							new NormalEnemy(SPACING, SPACING), //down right 
+							new NormalEnemy(-SPACING * 2, SPACING * 2), //down left x 2
+							new NormalEnemy(SPACING * 2, SPACING * 2)]; //down right x 2
 			}
 			
 			return particles;
