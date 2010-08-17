@@ -5,6 +5,12 @@ package com.exploid
 	public class ExPlayer extends ExParticle
 	{
 		
+		public static const ST_INVINCIBLE:String = "invincible";
+		
+		
+		public static const MAX_INVINCIBLE_TIME:Number = 2;
+		private var _invAge:Number;
+		
 		public function ExPlayer(x:Number=0, y:Number=0)
 		{
 			super(x, y);
@@ -13,7 +19,8 @@ package com.exploid
 		}
 		
 		override public function update():void {
-			if(this.state == ST_ALIVE) {
+			if(this.state == ExParticle.ST_ALIVE || this.state == ST_INVINCIBLE) {
+				
 				if(ExGlobal.input.isPressed(Keyboard.RIGHT)) {
 					this.x += 5;
 				}
@@ -32,6 +39,14 @@ package com.exploid
 				}
 			}
 			
+			if(this.state == ST_INVINCIBLE) {
+				_invAge += ExGlobal.elapsed;
+				
+				if(_invAge >= MAX_INVINCIBLE_TIME) {
+					this.state = ExParticle.ST_ALIVE;
+				}
+			}
+			
 			super.update();
 		}
 		
@@ -44,6 +59,9 @@ package com.exploid
 					break;
 				case ExParticle.ST_DEAD:
 					break;
+				case ST_INVINCIBLE:
+					_invAge = 0;
+					break;
 			}
 		}
 		
@@ -51,8 +69,10 @@ package com.exploid
 		 * Called when the player collides with any particle 
 		 */		
 		override protected function reportCollision(target:ExParticle):void {
-			this.state = ExParticle.ST_DEAD;
-			this.isSolid = false;
+			if(this.state == ExParticle.ST_ALIVE) {
+				this.state = ExParticle.ST_DEAD;
+				this.isSolid = false;
+			}
 		}
 	}
 }

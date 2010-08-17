@@ -70,10 +70,12 @@ package com.exploid
 					
 					if (subject.state == ExParticle.ST_EXPLODE) {
 						// need to cull this guy out and replace him with an explosion!
+						subject.state = ExParticle.ST_DEAD;
 						var ex:Explosion = Explosion.explosionFromParticle(subject);
 						saved.push(ex);
-						this.dispatchEvent(new EnemyEvent(EnemyEvent.KILLED));
 						
+						this.dispatchEvent(new EnemyEvent(EnemyEvent.KILLED));
+
 					} else {
 						saved.push(subject);
 					}

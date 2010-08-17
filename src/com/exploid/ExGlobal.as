@@ -27,7 +27,7 @@ package com.exploid
 			_currentMultiplier = value;
 			//if a chain happened quickly enough, reset the combo trigger
 			flash.utils.clearTimeout(_multiplierTimeout);
-			_multiplierTimeout = flash.utils.setTimeout(clearMultiplier, COMBO_TIME);
+			_multiplierTimeout = flash.utils.setTimeout(clearMultiplier, COMBO_TIME * 1000);
 		}
 		private static var _currentMultiplier:int = 0;
 		public static const COMBO_TIME:Number = 1;
@@ -35,6 +35,7 @@ package com.exploid
 		
 		private static function clearMultiplier():void {
 			score += _currentMultiplier * SCORE_PER_PARTICLE;
+			_currentMultiplier = 0;
 		}
 		
 		/**
@@ -53,6 +54,10 @@ package com.exploid
 				g.drawCircle(obj.x, obj.y, obj.radius);
 				g.moveTo(obj.x, obj.y);
 				g.lineTo(obj.x + obj.velocity.x, obj.y + obj.velocity.y);
+				
+				if(obj is ExPlayer) {
+					g.drawCircle(obj.x, obj.y, obj.radius / 2);
+				}
 			}
 		}
 	}
