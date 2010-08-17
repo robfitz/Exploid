@@ -1,5 +1,8 @@
 package com.exploid
 {
+	import com.exploid.events.EnemyEvent;
+	import flash.events.Event;
+	
 	
 	/**
 	 * Game state that contains the emitters and special shit for a level 
@@ -16,6 +19,11 @@ package com.exploid
 		public function ExLevel()
 		{
 			particles = new ExGroup();
+			particles.addEventListener(EnemyEvent.KILLED, onEnemyKilled);
+		}
+		
+		private function onEnemyKilled(event:Event):void {
+			ExGlobal.currentMultiplier ++;
 		}
 		
 		public function createPlayer():void {

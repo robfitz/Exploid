@@ -2,6 +2,8 @@ package com.exploid
 {
 	
 	import flash.display.Graphics;
+	import flash.utils.setTimeout;
+	import flash.utils.clearTimeout;
 	
 	public class ExGlobal
 	{
@@ -17,8 +19,23 @@ package com.exploid
 		public static var input:ExInput;
 		
 		[Bindable] public static var score:int  = 0;
+		public static const SCORE_PER_PARTICLE:int = 100;
 		
-		public static var currentMultiplier:int = 0;
+		
+		public static function get currentMultiplier():int { return _currentMultiplier; }
+		public static function set currentMultiplier(value:int):void { 
+			_currentMultiplier = value;
+			//if a chain happened quickly enough, reset the combo trigger
+			flash.utils.clearTimeout(_multiplierTimeout);
+			_multiplierTimeout = flash.utils.setTimeout(clearMultiplier, COMBO_TIME);
+		}
+		private static var _currentMultiplier:int = 0;
+		public static const COMBO_TIME:Number = 1;
+		private static var _multiplierTimeout:uint;
+		
+		private static function clearMultiplier():void {
+			score += _currentMultiplier * SCORE_PER_PARTICLE;
+		}
 		
 		/**
 		 * Draws information about the current state on a ExGroup

@@ -1,14 +1,17 @@
 package com.exploid
 {
 	import com.exploid.particles.Explosion;
+	import flash.events.EventDispatcher;
+	import com.exploid.emitters.EnemyEmitter;
+	import com.exploid.events.EnemyEvent;
 	
 	/**
 	 * Group series of game objects. 
 	 * @author devin
-	 * 
+	 * @dispatches EnemyEvent.KILLED
 	 */	
 	
-	public class ExGroup
+	public class ExGroup extends EventDispatcher
 	{
 		/**
 		 * Members controlled and updated by this group 
@@ -69,6 +72,8 @@ package com.exploid
 						// need to cull this guy out and replace him with an explosion!
 						var ex:Explosion = Explosion.explosionFromParticle(subject);
 						saved.push(ex);
+						this.dispatchEvent(new EnemyEvent(EnemyEvent.KILLED));
+						
 					} else {
 						saved.push(subject);
 					}
