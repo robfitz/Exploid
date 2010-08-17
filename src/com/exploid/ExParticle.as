@@ -27,7 +27,7 @@ package com.exploid
 			this.acceleration = new ExVector();
 			this.maxVelocity = new ExVector(1000, 1000);
 			this.isSolid = false;
-			this.radius = 5;
+			this.radius = 10;
 		}
 		
 		/**
@@ -40,6 +40,24 @@ package com.exploid
 			
 			x += velocity.x * ExGlobal.elapsed;
 			y += velocity.y * ExGlobal.elapsed;
+		}
+		
+		/**
+		 * Checks if a collision has occured 
+		 * @param target The particle we're insepcting 
+		 */		
+		public function collideWith(target:ExParticle):void {
+			var dx:Number = this.x - target.x;
+			var dy:Number = this.y - target.y;
+			var radii:Number = this.radius + target.radius;
+			
+			if(dx * dx + dy * dy - radii * radii <= 0) {
+				this.reportCollision();
+			}
+		}
+		
+		public function reportCollision():void {
+			trace("Basic collision found");
 		}
 		
 	}

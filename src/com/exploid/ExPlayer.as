@@ -7,11 +7,11 @@ package com.exploid
 		public function ExPlayer(x:Number=0, y:Number=0)
 		{
 			super(x, y);
+			this.isSolid = true;
 		}
 		
 		
 		override public function update():void {
-			trace("Hello : " + ExGlobal.input.isPressed(Keyboard.RIGHT));
 			if(ExGlobal.input.isPressed(Keyboard.RIGHT)) {
 				this.x += 5;
 			}
