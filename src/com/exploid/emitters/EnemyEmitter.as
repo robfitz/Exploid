@@ -18,7 +18,7 @@ package com.exploid.emitters
 			super(level, rate);
 		}
 		
-		override protected function createParticle():ExParticle {
+		override protected function createParticles():Array {
 			//choose which edge this enemy will spawn from
 			var dir:int = Math.random() * 3.99999;
 			//choose how fast this enemy will move
@@ -57,7 +57,7 @@ package com.exploid.emitters
 			enemy.velocity.x = vx;
 			enemy.velocity.y = vy;
 		
-			return enemy;
+			return [enemy];
 		}
 	}
 }

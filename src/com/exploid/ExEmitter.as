@@ -34,13 +34,15 @@ package com.exploid
 		}
 		
 		public final function emit():void {
-			this.level.particles.add(this.createParticle());
+			for each (var p:ExParticle in this.createParticles()) {
+				this.level.particles.add(p);
+			}
 		}
 		
-		protected function createParticle():ExParticle {
+		protected function createParticles():Array {
 			var bob:ExParticle = new ExParticle(600, 100);
 			bob.velocity.x = -10;
-			return bob;
+			return [bob];
 		}
 	}
 }
