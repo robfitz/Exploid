@@ -17,6 +17,9 @@ package com.exploid
 		
 		public static var input:ExInput;
 		
+		[Bindable] public static var score:int  = 0;
+		
+		public static var currentMultiplier:int = 0;
 		
 		/**
 		 * Draws information about the current state on a ExGroup
