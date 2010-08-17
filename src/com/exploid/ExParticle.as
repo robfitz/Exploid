@@ -9,6 +9,9 @@ package com.exploid
 	public class ExParticle extends ExVector
 	{
 		
+		public static const ST_NONE:String = "none";
+		public static const ST_DEAD:String = "dead";
+		
 		public var velocity:ExVector;
 		
 		public var acceleration:ExVector;
@@ -19,6 +22,8 @@ package com.exploid
 		
 		public var radius:Number;
 		
+		private var _state:String;
+		
 		public function ExParticle(x:Number = 0, y:Number = 0)
 		{
 			super(x, y);
@@ -28,19 +33,26 @@ package com.exploid
 			this.maxVelocity = new ExVector(1000, 1000);
 			this.isSolid = false;
 			this.radius = 10;
+			this.state = ST_NONE;
 		}
 		
 		/**
 		 * Update the objects position and state
 		 */
 		public function update():void {
-			
 			velocity.x += acceleration.x * ExGlobal.elapsed;
 			velocity.y += acceleration.y * ExGlobal.elapsed;
 			
 			x += velocity.x * ExGlobal.elapsed;
 			y += velocity.y * ExGlobal.elapsed;
 		}
+		
+		public function get state():String { return _state; }
+		public function set state(newState:String):void {
+			var oldState:String = _state;
+			_state = newState;
+		}
+		
 		
 		/**
 		 * Checks if a collision has occured 
@@ -56,8 +68,8 @@ package com.exploid
 			}
 		}
 		
-		public function reportCollision():void {
-			trace("Basic collision found");
+		protected function reportCollision():void {
+			
 		}
 		
 	}
