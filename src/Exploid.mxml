@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" applicationComplete="init()" enterFrame="update()">
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" applicationComplete="init()">
 	
 	<mx:Script>
 		<![CDATA[
@@ -10,10 +10,15 @@
 			
 			public var game:ExGame;
 			
-			
 			public function init():void {
 				// input processing
 				ExGlobal.input = new ExInput(this.stage);
+			}
+			
+			public function beginGame():void {
+				//hide game menu
+				menu.visible = false;
+				addEventListener(Event.ENTER_FRAME, update);
 				
 				game = new ExGame();
 				game.init();
@@ -21,7 +26,7 @@
 				
 			}
 			
-			public function update():void {
+			public function update(event:Event):void {
 				if(game && game.level && game.level.particles && canvas) {
 					this.canvas.graphics.clear();
 					ExGlobal.debugDraw(this.canvas.graphics, game.level.particles);
@@ -32,6 +37,10 @@
 		]]>
 	</mx:Script>
 	
+	<mx:Canvas id="menu" width="100%" height="100%" click="beginGame()" useHandCursor="true" buttonMode="true">
+		<mx:Label text="Click to start game" bottom="50" right="50" fontSize="64" mouseEnabled="false" />
+	</mx:Canvas>
 	
 	<mx:Canvas id="canvas" width="100%" height="100%" />
+	
 </mx:Application>
