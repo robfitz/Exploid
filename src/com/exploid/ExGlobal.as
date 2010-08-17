@@ -33,6 +33,10 @@ package com.exploid
 				g.drawCircle(obj.x, obj.y, obj.radius);
 				g.moveTo(obj.x, obj.y);
 				g.lineTo(obj.x + obj.velocity.x, obj.y + obj.velocity.y);
+				
+				if(obj is ExPlayer) {
+					g.drawCircle(obj.x, obj.y, obj.radius / 2);
+				}
 			}
 		}
 	}

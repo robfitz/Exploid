@@ -13,14 +13,14 @@ package com.exploid.particles
 			
 			ex.state = ST_EXPLODING;
 			ex.canAge = true;
-			ex.lifetime = 1;
+			ex.lifetime = .5;
 			ex.radius = 1;
 			ex.isSolid = true;
 			
 			return ex;
 		}
 		
-		public var expandPerSec:Number = 50;
+		public var expandPerSec:Number = 100;
 		
 		public function Explosion(x:Number=0, y:Number=0)
 		{
