@@ -37,7 +37,7 @@ package com.exploid
 					this.y -= 5;
 				}
 				
-				if(ExGlobal.input.isPressed(Keyboard.SPACE)) {
+				if(ExGlobal.input.isJustPressed(Keyboard.SPACE)) {
 					this.state = ExParticle.ST_EXPLODE;
 				}
 			}

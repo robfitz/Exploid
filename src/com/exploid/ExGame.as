@@ -5,6 +5,7 @@ package com.exploid
 	
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.ui.Keyboard;
 	import flash.utils.getTimer;
 	
 	
@@ -33,13 +34,15 @@ package com.exploid
 			var tickSec:Number = tick / 1000;
 			ExGlobal.elapsed = tickSec;
 			_totalElapsed = mark;
+			
+			//update the input
+			ExGlobal.input.updateInput();
 		
 			// TODO: update the sound objects
 			
 			// TODO: update the HUD	
 		
 			// update the game objects
-			ExGlobal.input.updateInput();
 			level.update();
 		}
 		
@@ -55,6 +58,13 @@ package com.exploid
 			this.level.emitters.add(new BossEmitter(this.level, new BossExample()));
 			this.level.emitters.members[0].emit();
 			
+			// init the input we'll be using
+			ExGlobal.input.addKey(Keyboard.SPACE);
+			ExGlobal.input.addKey(Keyboard.LEFT);
+			ExGlobal.input.addKey(Keyboard.RIGHT);
+			ExGlobal.input.addKey(Keyboard.UP);
+			ExGlobal.input.addKey(Keyboard.DOWN);
+		
 			// get everything humming
 			_totalElapsed = flash.utils.getTimer();
 			this.addEventListener(Event.ENTER_FRAME, update);

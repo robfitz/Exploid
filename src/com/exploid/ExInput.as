@@ -2,7 +2,6 @@ package com.exploid
 {
 	import flash.display.Stage;
 	import flash.events.KeyboardEvent;
-	import flash.ui.Keyboard;
 	
 	public class ExInput
 	{
@@ -16,31 +15,46 @@ package com.exploid
 		}
 		
 		public function isPressed(keyCode:int):Boolean {
-			if(_map[keyCode] >= 1) {
-				return true;
-			}
-			return false;
+			return _map[keyCode] && _map[keyCode].current >= 1;
 		}
 		
+		public function isJustPressed(keyCode:int):Boolean {
+			return _map[keyCode] && _map[keyCode].current == 2;
+		}
 		
 		public function updateInput():void {
 			var i:uint = 0;
 			while(i < 256) {
-				if(_map[i] == -1) {
-					_map[i] = 0;
-				} else if(_map[i] == 2) {
-					_map[i] = 1;
+				var k:Object = _map[i ++];
+				if(k) {
+					if(k.current == -1 && k.last == -1) {
+						k.current = 0;
+					} else if(k.current == 2 && k.last == 2) {
+						k.current = 1;
+					}
+					k.last = k.current;
 				}
-				i ++;
 			}
 		}
 		
 		private function onKeyDown(event:KeyboardEvent):void {
-			_map[event.keyCode] = 2;
+			if(_map[event.keyCode]) {
+				if(_map[event.keyCode].current > 0) {
+					_map[event.keyCode].current = 1;
+				} else {
+					_map[event.keyCode].current = 2;
+				}
+			}
 		}
 		
 		private function onKeyUp(event:KeyboardEvent):void {
-			_map[event.keyCode] = -1;
+			if(_map[event.keyCode]) {
+				_map[event.keyCode].current = -1;
+			}
+		}
+		
+		public function addKey(keyCode:uint):void {
+			_map[keyCode] = {current: 0, last: 0};
 		}
 	}
 }

@@ -18,7 +18,7 @@ package com.exploid.enemies
 			// the central node
 			var node:EnemyParticle = new EnemyParticle();
 			node.velocity.x = 15;
-			node.x = -150;
+			node.x = 0;
 			node.y = 200;
 			bp.push(node);
 			
