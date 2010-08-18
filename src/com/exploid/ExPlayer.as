@@ -11,11 +11,14 @@ package com.exploid
 		public static const MAX_INVINCIBLE_TIME:Number = 2;
 		private var _invAge:Number;
 		
+		public var lives:uint;
+		
 		public function ExPlayer(x:Number=0, y:Number=0)
 		{
 			super(x, y);
 			this.isSolid = true;
 			this.state = ST_ALIVE;
+			this.lives = ExGlobal.PLAYER_STARTING_LIVES;
 		}
 		
 		override public function update():void {
@@ -63,6 +66,22 @@ package com.exploid
 					_invAge = 0;
 					break;
 			}
+		}
+		
+		/**
+		 * Respawns the player if possible, and return true. 
+		 * If the player cannot respawn (no lives left) returns false 
+		 * @return True if player is respawned.
+		 */		
+		public function respawn():Boolean {
+			if(this.lives <= 0) {
+				return false;
+			}
+			lives --;
+			_invAge = 0;
+			state = ExPlayer.ST_INVINCIBLE;
+			isSolid = true;
+			return true;
 		}
 		
 		/**

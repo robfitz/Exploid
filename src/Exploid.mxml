@@ -30,6 +30,7 @@
 				
 				if(game && game.level && game.level.particles && canvas) {
 					this.canvas.graphics.clear();
+					
 					ExGlobal.debugDraw(this.canvas.graphics, game.level.particles);
 				}
 			}

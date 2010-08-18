@@ -2,14 +2,14 @@ package com.exploid
 {
 	
 	import flash.display.Graphics;
-	import flash.utils.setTimeout;
 	import flash.utils.clearTimeout;
+	import flash.utils.setTimeout;
 	
 	public class ExGlobal
 	{
-		/**
-		 * How much time in seconds has occured since the last frame 
-		 */			
+		///////////////////////////////////////////////////
+		// Game Constants and Variable
+		///////////////////////////////////////////////////
 		public static var elapsed:Number;
 		
 		public static var worldWidth:int = 800;
@@ -18,8 +18,14 @@ package com.exploid
 		
 		public static var input:ExInput;
 		
-		[Bindable] public static var score:int  = 0;
+		public static const PLAYER_STARTING_LIVES:uint = 3;
+		
+		///////////////////////////////////////////////////
+		// Scoring
+		///////////////////////////////////////////////////
 		public static const SCORE_PER_PARTICLE:int = 100;
+		[Bindable] public static var score:int  = 0;
+		
 		
 		
 		public static function get currentMultiplier():int { return _currentMultiplier; }
@@ -38,6 +44,11 @@ package com.exploid
 			_currentMultiplier = 0;
 		}
 		
+		
+		
+		///////////////////////////////////////////////////
+		// Debug Functionality
+		///////////////////////////////////////////////////
 		/**
 		 * Draws information about the current state on a ExGroup
 		 * directly onto the graphics buffer. 

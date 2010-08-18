@@ -41,9 +41,11 @@ package com.exploid
 			emmiter.update();
 			particles.update();
 			
-			if(needsRespawn) {
-				// old player, since it's dead, will be culled in the particle update
-				this.createPlayer();
+			if(needsRespawn && this.player.respawn()) {
+				// decrement current lives, reset position & state, and readd to the particle group
+				player.x = ExGlobal.worldWidth / 2;
+				player.y = ExGlobal.worldHeight / 2;
+				this.particles.add(player);
 			}
 		}
 	}
