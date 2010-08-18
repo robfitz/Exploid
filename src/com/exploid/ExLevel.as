@@ -33,16 +33,11 @@ package com.exploid
 		}
 		
 		public function update():void {
-			var needsRespawn:Boolean = false;
-			if(player.state == ExParticle.ST_DEAD) {
-				needsRespawn = true;
-			}
-			
 			emmiter.update();
 			particles.update();
 			
-			if(needsRespawn && this.player.respawn()) {
-				// decrement current lives, reset position & state, and readd to the particle group
+			// check if respawn is needed / possible
+			if(player.state == ExParticle.ST_DEAD && this.player.respawn()) {
 				player.x = ExGlobal.worldWidth / 2;
 				player.y = ExGlobal.worldHeight / 2;
 				this.particles.add(player);

@@ -6,7 +6,7 @@ package com.exploid
 	 * 
 	 */	
 	
-	public class ExParticle extends ExVector
+	public class ExParticle extends ExVector implements IExUpdate
 	{
 		
 		public static const ST_NONE:String = "none";
@@ -16,7 +16,7 @@ package com.exploid
 		
 		public var velocity:ExVector;
 		
-		public var acceleration:ExVector;
+		public var acceleration:ExVector; 
 		
 		public var maxVelocity:ExVector;
 		

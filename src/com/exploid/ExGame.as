@@ -1,6 +1,7 @@
 package com.exploid
 {
-	import com.exploid.emitters.EnemyEmitter;
+	import com.exploid.emitters.BossEmitter;
+	import com.exploid.enemies.BossExample;
 	
 	import flash.display.Sprite;
 	import flash.events.Event;
@@ -50,7 +51,9 @@ package com.exploid
 			
 			// default groups
 			this.level = new ExLevel();
-			this.level.emmiter = new EnemyEmitter(this.level, .1);
+			//this.level.emmiter = new EnemyEmitter(this.level, .1);
+			this.level.emmiter = new BossEmitter(this.level, new BossExample());
+			this.level.emmiter.emit();
 			
 			// get everything humming
 			_totalElapsed = flash.utils.getTimer();

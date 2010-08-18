@@ -1,9 +1,9 @@
 package com.exploid
 {
-	import com.exploid.particles.Explosion;
-	import flash.events.EventDispatcher;
-	import com.exploid.emitters.EnemyEmitter;
 	import com.exploid.events.EnemyEvent;
+	import com.exploid.particles.Explosion;
+	
+	import flash.events.EventDispatcher;
 	
 	/**
 	 * Group series of game objects. 
@@ -11,7 +11,7 @@ package com.exploid
 	 * @dispatches EnemyEvent.KILLED
 	 */	
 	
-	public class ExGroup extends EventDispatcher
+	public class ExGroup extends EventDispatcher implements IExUpdate
 	{
 		/**
 		 * Members controlled and updated by this group 
