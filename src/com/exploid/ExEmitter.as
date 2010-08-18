@@ -1,6 +1,6 @@
 package com.exploid
 {
-	public class ExEmitter extends ExVector
+	public class ExEmitter extends ExVector implements IExUpdate
 	{
 		/**
 		 * The level we'll emit our particles into

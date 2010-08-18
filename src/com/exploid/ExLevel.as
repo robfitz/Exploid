@@ -1,6 +1,8 @@
 package com.exploid
 {
 	import com.exploid.events.EnemyEvent;
+	import com.exploid.groups.ParticleGroup;
+	
 	import flash.events.Event;
 	
 	
@@ -12,13 +14,14 @@ package com.exploid
 	
 	public class ExLevel
 	{
-		public var emmiter:ExEmitter;
-		public var particles:ExGroup;
+		public var emitters:ExGroup;
+		public var particles:ParticleGroup;
 		public var player:ExPlayer;
 		
 		public function ExLevel()
 		{
-			particles = new ExGroup();
+			emitters = new ExGroup();
+			particles = new ParticleGroup();
 			particles.addEventListener(EnemyEvent.KILLED, onEnemyKilled);
 		}
 		
@@ -33,7 +36,7 @@ package com.exploid
 		}
 		
 		public function update():void {
-			emmiter.update();
+			emitters.update();
 			particles.update();
 			
 			// check if respawn is needed / possible

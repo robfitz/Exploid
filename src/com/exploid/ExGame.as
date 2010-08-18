@@ -52,8 +52,8 @@ package com.exploid
 			// default groups
 			this.level = new ExLevel();
 			//this.level.emmiter = new EnemyEmitter(this.level, .1);
-			this.level.emmiter = new BossEmitter(this.level, new BossExample());
-			this.level.emmiter.emit();
+			this.level.emitters.add(new BossEmitter(this.level, new BossExample()));
+			this.level.emitters.members[0].emit();
 			
 			// get everything humming
 			_totalElapsed = flash.utils.getTimer();
