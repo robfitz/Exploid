@@ -1,6 +1,8 @@
 package com.exploid.enemies
 {
+	import com.exploid.ExGlobal;
 	import com.exploid.ExParticleTemplate;
+	import com.exploid.emitters.DirectionalEmitter;
 	import com.exploid.particles.OrbitingParticle;
 
 	public class BossExample extends ExParticleTemplate
@@ -14,7 +16,10 @@ package com.exploid.enemies
 			var bp:Array = [];
 			
 			// the central node
-			var node:EnemyParticle = new TimedEnemy();
+			var node:DirectionalEmitter = new DirectionalEmitter(ExGlobal.currentLevel, 1, 0, 50);
+			node.particleType = TimedEnemy;
+			node.emitAngleWiggle = .1;
+			node.secPerParticle = .8;
 			node.velocity.x = 15;
 			node.x = 0;
 			node.y = 200;

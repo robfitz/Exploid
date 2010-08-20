@@ -12,6 +12,8 @@ package com.exploid
 		///////////////////////////////////////////////////
 		// Game Constants and Variable
 		///////////////////////////////////////////////////
+		public static var currentLevel:ExLevel;
+		
 		public static var elapsed:Number;
 		
 		public static var worldWidth:int = 800;

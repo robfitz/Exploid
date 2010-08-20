@@ -16,13 +16,11 @@ package com.exploid
 	
 	public class ExLevel
 	{
-		public var emitters:ExGroup;
 		public var particles:ParticleGroup;
 		public var player:ExPlayer;
 		
 		public function ExLevel()
 		{
-			emitters = new ExGroup();
 			particles = new ParticleGroup();
 			//particles.addEventListener(EnemyEvent.KILLED, onEnemyKilled);
 		}
@@ -42,7 +40,6 @@ package com.exploid
 		}
 		
 		public function update():void {
-			emitters.update();
 			particles.update();
 			
 			// check if respawn is needed / possible

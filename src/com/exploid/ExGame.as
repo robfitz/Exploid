@@ -1,6 +1,7 @@
 package com.exploid
 {
 	import com.exploid.emitters.BossEmitter;
+	import com.exploid.emitters.EnemyEmitter;
 	import com.exploid.enemies.BossExample;
 	
 	import flash.display.Sprite;
@@ -19,7 +20,12 @@ package com.exploid
 		
 		private var _totalElapsed:uint = 0;
 		
-		public var level:ExLevel;
+		private var _level:ExLevel;
+		public function get level():ExLevel { return _level; }
+		public function set level(newlevel:ExLevel):void {
+			_level = newlevel;
+			ExGlobal.currentLevel = newlevel;
+		}
 		
 		public function ExGame()
 		{
@@ -54,9 +60,11 @@ package com.exploid
 			
 			// default groups
 			this.level = new ExLevel();
-			//this.level.emmiter = new EnemyEmitter(this.level, .1);
-			this.level.emitters.add(new BossEmitter(this.level, new BossExample()));
-			this.level.emitters.members[0].emit();
+			
+			this.level.particles.add(new EnemyEmitter(this.level, .1));
+			var boss:BossEmitter = new BossEmitter(this.level, new BossExample());
+			this.level.particles.add(boss);
+			boss.emit();
 			
 			// init the input we'll be using
 			ExGlobal.input.addKey(Keyboard.SPACE);

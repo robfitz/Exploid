@@ -3,7 +3,7 @@ package com.exploid.emitters
 	import com.exploid.ExEmitter;
 	import com.exploid.ExGlobal;
 	import com.exploid.ExLevel;
-	import com.exploid.particles.EnemyParticle;
+	import com.exploid.enemies.EnemyParticle;
 	
 	public class EnemyEmitter extends ExEmitter
 	{
@@ -16,6 +16,7 @@ package com.exploid.emitters
 		public function EnemyEmitter(level:ExLevel, rate:Number = 1)
 		{
 			super(level, rate);
+			this.isSolid = false;
 		}
 		
 		override protected function createParticles():Array {
