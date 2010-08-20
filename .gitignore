@@ -1,6 +1,7 @@
 .actionScriptProperties
 .flexProperties
 .project
+.DS_Store
 .settings/
 bin-debug/
 html-template/

@@ -1,8 +1,6 @@
 package com.exploid.enemies
 {
 	import com.exploid.ExParticleTemplate;
-	import com.exploid.particles.LinkedParticle;
-	import com.exploid.particles.EnemyParticle;
 	import com.exploid.particles.OrbitingParticle;
 
 	public class BossExample extends ExParticleTemplate
@@ -16,7 +14,7 @@ package com.exploid.enemies
 			var bp:Array = [];
 			
 			// the central node
-			var node:EnemyParticle = new EnemyParticle();
+			var node:EnemyParticle = new TimedEnemy();
 			node.velocity.x = 15;
 			node.x = 0;
 			node.y = 200;

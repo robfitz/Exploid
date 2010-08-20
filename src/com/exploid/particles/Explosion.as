@@ -33,10 +33,9 @@ package com.exploid.particles
 		}
 		
 		override protected function reportCollision(target:ExParticle):void {
-			if(target.state == ExParticle.ST_ALIVE) {
-				target.state = ExParticle.ST_EXPLODE;
+			if(target.state == ExParticle.ST_ALIVE && target.canExplode) {
+				target.explode();
 			}
 		}
-		
 	}
 }

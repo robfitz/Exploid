@@ -1,7 +1,7 @@
 package com.exploid.particles
 {
 	import com.exploid.ExParticle;
-	import com.exploid.ExVector;
+	import com.exploid.enemies.EnemyParticle;
 
 	/**
 	 * This particle position is based solely off the location of another partcle. Useful for contructing

@@ -17,6 +17,7 @@ package com.exploid
 		{
 			super(x, y);
 			this.isSolid = true;
+			this.canExplode = false;
 			this.state = ST_ALIVE;
 			this.lives = ExGlobal.PLAYER_STARTING_LIVES;
 		}

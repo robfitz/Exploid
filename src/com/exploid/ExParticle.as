@@ -22,6 +22,8 @@ package com.exploid
 		
 		public var isSolid:Boolean;
 		
+		public var canExplode:Boolean;
+		
 		public var radius:Number;
 		
 		private var _state:String;
@@ -40,6 +42,7 @@ package com.exploid
 			this.acceleration = new ExVector();
 			this.maxVelocity = new ExVector(1000, 1000);
 			this.isSolid = false;
+			this.canExplode = false;
 			this.radius = 10;
 			this.state = ST_ALIVE;
 			this.lifetime = 0;
@@ -54,7 +57,7 @@ package com.exploid
 			if(this.canAge) {
 				this.age += ExGlobal.elapsed;
 				if(this.age >= this.lifetime) {
-					this.state = ST_DEAD;
+					this.aged();
 				}
 			}
 			
@@ -69,6 +72,21 @@ package com.exploid
 		public function set state(newState:String):void {
 			var oldState:String = _state;
 			_state = newState;
+		}
+		
+		/**
+		 * Called when a particle has reached it's max age 
+		 */		
+		protected function aged():void {
+			this.state = ST_DEAD;
+		}
+		
+		/**
+		 * Signals that this particle has been hit by an explosion. 
+		 * Usually only called by another explosion entity
+		 */
+		public function explode():void {
+			this.state = ST_EXPLODE;
 		}
 		
 		
