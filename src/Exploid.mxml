@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" applicationComplete="init()" backgroundColor="#ffdddd">
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" applicationComplete="init()" backgroundColor="#ffdddd" xmlns:hud="com.exploid.hud.*">
 	
 	<mx:Script>
 		<![CDATA[
+			import com.exploid.hud.GameTextManager;
 			import com.exploid.ExInput;
 			import com.exploid.ExParticle;
 			import com.exploid.ExGlobal;
@@ -13,6 +14,7 @@
 			public function init():void {
 				// input processing
 				ExGlobal.input = new ExInput(this.stage);
+				canvas.addChild(GameTextManager.instance);
 			}
 			
 			public function beginGame():void {

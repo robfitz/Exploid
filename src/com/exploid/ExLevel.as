@@ -2,7 +2,9 @@ package com.exploid
 {
 	import com.exploid.events.EnemyEvent;
 	import com.exploid.groups.ParticleGroup;
+	import com.exploid.hud.GameTextManager;
 	
+	import flash.display.DisplayObject;
 	import flash.events.Event;
 	
 	
@@ -22,11 +24,15 @@ package com.exploid
 		{
 			emitters = new ExGroup();
 			particles = new ParticleGroup();
-			particles.addEventListener(EnemyEvent.KILLED, onEnemyKilled);
+			//particles.addEventListener(EnemyEvent.KILLED, onEnemyKilled);
 		}
 		
 		private function onEnemyKilled(event:Event):void {
-			ExGlobal.currentMultiplier ++;
+			var enemy:DisplayObject = event.currentTarget as DisplayObject;
+//			if (enemy) {
+//				var score:uint = ExGlobal.kill();
+//				GameTextManager.instance.show(score.toString(), enemy.x, enemy.y);
+//			}
 		}
 		
 		public function createPlayer():void {

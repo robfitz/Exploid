@@ -8,7 +8,7 @@ package com.exploid
 	 * @dispatches EnemyEvent.KILLED
 	 */	
 	
-	public class ExGroup extends EventDispatcher implements IExUpdate
+	public class ExGroup implements IExUpdate
 	{
 		/**
 		 * Members controlled and updated by this group 

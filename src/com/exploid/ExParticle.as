@@ -1,5 +1,6 @@
 package com.exploid
 {
+
 	/**
 	 * Superclass for all the particles and shit flying around the screen during a game. 
 	 * @author devin

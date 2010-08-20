@@ -1,8 +1,9 @@
 package com.exploid.groups
 {
+	import com.exploid.ExGlobal;
 	import com.exploid.ExGroup;
 	import com.exploid.ExParticle;
-	import com.exploid.events.EnemyEvent;
+	import com.exploid.hud.GameTextManager;
 	import com.exploid.particles.Explosion;
 	
 	public class ParticleGroup extends ExGroup
@@ -64,7 +65,8 @@ package com.exploid.groups
 						var ex:Explosion = Explosion.explosionFromParticle(subject);
 						saved.push(ex);
 						
-						this.dispatchEvent(new EnemyEvent(EnemyEvent.KILLED));
+						var score:uint = ExGlobal.kill();
+						GameTextManager.instance.show(score.toString(), subject.x, subject.y);
 
 					} else {
 						saved.push(subject);

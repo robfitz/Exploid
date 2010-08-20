@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="400" height="300">
+
+
+	<mx:Script>
+		<![CDATA[
+			import flash.utils.setTimeout;
+			[Bindable] public var message:String = "";
+			
+			public function is_active():Boolean { return _is_active; }
+			private var _is_active:Boolean = false;
+			
+			//how long before fade starts			
+			private static const VISIBLE_TIME:uint = 1500;
+			
+			//duration of fade out effect
+			private static const FADE_TIME:uint = 500;
+			
+			public function show(message:String):void {
+				this.message = message;
+				this._is_active = true;
+				
+				myText.x = -myText.textWidth / 2;
+				myText.y = -myText.textHeight;
+				
+				myText.alpha = 1.0;
+				myText.visible = true;
+				flash.utils.setTimeout(beginFade, VISIBLE_TIME);
+			}
+			
+			private function beginFade():void {
+				trace("begin fade");
+				//fadeOut.play([myText]);
+				myText.visible = false;
+			}
+		]]>
+	</mx:Script>
+	
+	<mx:Fade id="fadeOut" duration="{FADE_TIME}" alphaFrom="1.0" alphaTo="0.0" effectEnd="_is_active=false;"/>
+
+	<mx:Label id="myText" text="{this.message}" alpha="0" />
+		
+</mx:Canvas>

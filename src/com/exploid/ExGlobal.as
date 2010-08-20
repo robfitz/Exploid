@@ -25,10 +25,17 @@ package com.exploid
 		///////////////////////////////////////////////////
 		// Scoring
 		///////////////////////////////////////////////////
-		public static const SCORE_PER_PARTICLE:int = 100;
 		[Bindable] public static var score:int  = 0;
 		
+		public static function kill(basePoints:uint=800):uint {
+			currentMultiplier ++;
+			var delta:uint = basePoints * currentMultiplier;
+			currentChainScore += delta;
+			return delta;
+		}
 		
+		
+		public static var currentChainScore:uint = 0;
 		
 		public static function get currentMultiplier():int { return _currentMultiplier; }
 		public static function set currentMultiplier(value:int):void { 
@@ -42,11 +49,12 @@ package com.exploid
 		private static var _multiplierTimeout:uint;
 		
 		private static function clearMultiplier():void {
-			score += _currentMultiplier * SCORE_PER_PARTICLE;
+			//add score from current combo onto the main scoreboard
+			score += currentChainScore;
+			//reset chain
 			_currentMultiplier = 0;
+			currentChainScore = 0;
 		}
-		
-		
 		
 		///////////////////////////////////////////////////
 		// Debug Functionality
