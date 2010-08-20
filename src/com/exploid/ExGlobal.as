@@ -66,31 +66,34 @@ package com.exploid
 			g.lineStyle(1, lineColor);
 			
 			for each(var obj:ExParticle in group.members) {
-				g.drawCircle(obj.x, obj.y, obj.radius);
-				g.moveTo(obj.x, obj.y);
-				g.lineTo(obj.x + obj.velocity.x, obj.y + obj.velocity.y);
+				if(obj.isSolid) {
 				
-				if(obj is ExPlayer) {
-					g.drawCircle(obj.x, obj.y, obj.radius / 2);
-				}
-				
-				if(obj is TimedEnemy) {
-					var t:TimedEnemy = obj as TimedEnemy;
-					g.lineStyle(1, lineColor, .5);
+					g.drawCircle(obj.x, obj.y, obj.radius);
+					g.moveTo(obj.x, obj.y);
+					g.lineTo(obj.x + obj.velocity.x, obj.y + obj.velocity.y);
 					
-					if(t.state == TimedEnemy.ST_COUNT_DOWN) {
-						var a:Number = 0;
-						
-						g.moveTo(obj.x + obj.radius * Math.cos(a), obj.y + obj.radius * Math.sin(a));
-						while(a < (t.lifetime - t.age) / t.lifetime * 2 * Math.PI ){
-							a += .1
-							g.lineTo(obj.x + obj.radius / 2 * Math.cos(a), obj.y + obj.radius / 2 * Math.sin(a));
-						}
-					} else {
+					if(obj is ExPlayer) {
 						g.drawCircle(obj.x, obj.y, obj.radius / 2);
 					}
 					
-					g.lineStyle(1, lineColor);
+					if(obj is TimedEnemy) {
+						var t:TimedEnemy = obj as TimedEnemy;
+						g.lineStyle(1, lineColor, .5);
+						
+						if(t.state == TimedEnemy.ST_COUNT_DOWN) {
+							var a:Number = 0;
+							
+							g.moveTo(obj.x + obj.radius * Math.cos(a), obj.y + obj.radius * Math.sin(a));
+							while(a < (t.lifetime - t.age) / t.lifetime * 2 * Math.PI ){
+								a += .1
+								g.lineTo(obj.x + obj.radius / 2 * Math.cos(a), obj.y + obj.radius / 2 * Math.sin(a));
+							}
+						} else {
+							g.drawCircle(obj.x, obj.y, obj.radius / 2);
+						}
+						
+						g.lineStyle(1, lineColor);
+					}
 				}
 			}
 		}

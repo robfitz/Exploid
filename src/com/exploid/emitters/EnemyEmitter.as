@@ -16,6 +16,7 @@ package com.exploid.emitters
 		public function EnemyEmitter(level:ExLevel, rate:Number = 1)
 		{
 			super(level, rate);
+			this.isSolid = false;
 		}
 		
 		override protected function createParticles():Array {

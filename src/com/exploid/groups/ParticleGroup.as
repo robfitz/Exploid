@@ -40,7 +40,7 @@ package com.exploid.groups
 					for(var j:uint = 0; j < this.members.length; j ++) {
 						target = this.members[j] as ExParticle;
 						
-						if(target != subject) {
+						if(target.isSolid && target != subject) {
 							subject.collideWith(target);
 						}
 					}

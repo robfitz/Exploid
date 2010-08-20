@@ -60,9 +60,11 @@ package com.exploid
 			
 			// default groups
 			this.level = new ExLevel();
-			//this.level.emitters.add(new EnemyEmitter(this.level, .1));
-			this.level.emitters.add(new BossEmitter(this.level, new BossExample()));
-			this.level.emitters.members[0].emit();
+			
+			this.level.particles.add(new EnemyEmitter(this.level, .1));
+			var boss:BossEmitter = new BossEmitter(this.level, new BossExample());
+			this.level.particles.add(boss);
+			boss.emit();
 			
 			// init the input we'll be using
 			ExGlobal.input.addKey(Keyboard.SPACE);

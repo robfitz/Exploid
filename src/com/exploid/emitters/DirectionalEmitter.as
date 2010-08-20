@@ -34,6 +34,7 @@ package com.exploid.emitters
 			this.emitAngleWiggle = 0;
 			this.emitVelocityWiggle = 0;
 			this.canExplode = true;
+			this.isSolid = true;
 		}
 		
 		override protected function createParticles():Array {
