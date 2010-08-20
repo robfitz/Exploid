@@ -1,6 +1,6 @@
 package com.exploid
 {
-	public class ExEmitter extends ExVector implements IExUpdate
+	public class ExEmitter extends ExParticle implements IExUpdate
 	{
 		/**
 		 * The level we'll emit our particles into
@@ -17,17 +17,25 @@ package com.exploid
 		 */		
 		public var secSinceLast:Number;
 		
+		/**
+		 * Are we actively emitting particles?  
+		 */		
 		public var isEmitting:Boolean;
 		
 		public function ExEmitter(level:ExLevel, rate:Number = 1)
 		{
+			super();
+			this.isSolid = false;
+			this.canAge = false;
 			this.level = level;
 			this.secPerParticle = rate;
 			this.secSinceLast = 0;
 			this.isEmitting = true;
 		}
 		
-		public function update():void {
+		override public function update():void {
+			super.update(); 
+			
 			if(this.isEmitting) {
 				this.secSinceLast += ExGlobal.elapsed;
 				
@@ -35,8 +43,8 @@ package com.exploid
 					emit();
 					secSinceLast -= this.secPerParticle;
 				}
-			}
 		}
+			}
 		
 		public final function emit():void {
 			for each (var p:ExParticle in this.createParticles()) {
