@@ -1,5 +1,7 @@
 package com.exploid
 {
+	import com.exploid.enemies.EnemyParticle;
+	
 	public class ExEmitter extends ExParticle implements IExUpdate
 	{
 		/**
@@ -21,6 +23,11 @@ package com.exploid
 		 * Are we actively emitting particles?  
 		 */		
 		public var isEmitting:Boolean;
+		
+		/**
+		 * Type of particle class to create on emit 
+		 */		
+		public var particleType:Class = com.exploid.enemies.EnemyParticle;
 		
 		public function ExEmitter(level:ExLevel, rate:Number = 1)
 		{
@@ -53,9 +60,7 @@ package com.exploid
 		}
 		
 		protected function createParticles():Array {
-			var bob:ExParticle = new ExParticle(600, 100);
-			bob.velocity.x = -10;
-			return [bob];
+			return [new particleType()];
 		}
 	}
 }

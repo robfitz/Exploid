@@ -3,7 +3,7 @@ package com.exploid.emitters
 	import com.exploid.ExEmitter;
 	import com.exploid.ExGlobal;
 	import com.exploid.ExLevel;
-	import com.exploid.particles.EnemyParticle;
+	import com.exploid.enemies.EnemyParticle;
 	
 	public class EnemyEmitter extends ExEmitter
 	{

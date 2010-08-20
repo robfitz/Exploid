@@ -16,16 +16,15 @@ package com.exploid.groups
 		 * Update the group state and motion
 		 */
 		override public function update():void {
-			this.updateMotion();
+			this.updateParticle();
 			this.updateCollision();
 			this.updateStates();
 		}
 		
-		private function updateMotion():void {
+		private function updateParticle():void {
 			var member:ExParticle; 
 			for(var i:uint; i < members.length; i ++) {
-				member = members[i] as ExParticle;
-				member.update();
+				members[i].update();
 			}
 		}
 		
