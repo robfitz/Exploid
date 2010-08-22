@@ -17,7 +17,7 @@ package com.exploid.hud
 		{
 			super();
 			labels = [];
-			createLabels();
+			createLabels(100);
 		}
 		
 		private function createLabels(numToAdd:uint=10):void {
@@ -38,7 +38,7 @@ package com.exploid.hud
 			}
 			//if haven't found an empty label to recycle, create some blank
 			//ones and try again
-			createLabels();
+			createLabels(labels.length);
 			show(message, x, y);
 		}		
 	}

@@ -29,7 +29,6 @@
 			}
 			
 			private function beginFade():void {
-				trace("begin fade");
 				//fadeOut.play([myText]);
 				myText.visible = false;
 			}
