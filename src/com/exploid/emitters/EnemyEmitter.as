@@ -5,18 +5,51 @@ package com.exploid.emitters
 	import com.exploid.ExLevel;
 	import com.exploid.enemies.EnemyParticle;
 	
+	import flash.geom.Point;
+	
 	public class EnemyEmitter extends ExEmitter
 	{
+		/** the shape of enemy formations. must be initialized in 
+		 * constructor if currently null */
+		private static var STANDARD_FORMATIONS:Array;
 		
-		private static const EDGE_DIST:int = -30;
+		/** how likely a given formation is to spawn, of format
+		 * [x, y, z, ..., 1.0] where 0 < x < y < z < ... < 1.0 */
+		private static var DEFAULT_FREQUENCIES:Array;
 		
+		/** how far beyond the playfield edge the enemies should spawn
+		 * before travelling inward. set to a negative number to see the
+		 * spawns on-screen for debugging, or a positive number for 
+		 * the proper player experience */
+		private static const EDGE_DIST:int = 30;
+		/** distance between each particle of an enemy ship */
+		private static const PARTICLE_SPACING:int = 16;
+		
+		/** minimum velocity of an enemy */
 		private static const V_MIN:Number = 5;
+		/** maximum velocity of an enemy */
 		private static const V_MAX:Number = 30;
 		
-		public function EnemyEmitter(level:ExLevel, rate:Number = 1)
+		
+		private var enemyFormations:Array;
+		/** how likely a given formation is to spawn, of format
+		 * [x, y, z, ..., 1.0] where 0 < x < y < z < ... < 1.0 */
+		private var formationFrequencies:Array;
+		/** factor applied to new enemy velocities to allow for scaling
+		 * difficult in addition to the variance between enemies at the same stage */
+		private var velocityModifier:Number;
+		
+		public function EnemyEmitter(level:ExLevel, secPerParticle:Number=1, formationFrequencies:Array=null, velocityModifier:Number=1)
 		{
-			super(level, rate);
+			super(level, secPerParticle);
+			if (!STANDARD_FORMATIONS) initStandardFormations();
 			this.isSolid = false;
+			
+			this.velocityModifier = velocityModifier;
+			if (formationFrequencies) this.formationFrequencies = formationFrequencies;
+			else this.formationFrequencies = DEFAULT_FREQUENCIES;
+			
+			this.enemyFormations = STANDARD_FORMATIONS;
 		}
 		
 		override protected function createParticles():Array {
@@ -84,39 +117,48 @@ package com.exploid.emitters
 		
 		
 		private function createEnemyParticles():Array {
-			var particles:Array = [];
-			var SPACING:int = 16;
-			
+			//pick which formation we'll create, based on the frequency distribution set early
 			var rand:Number = Math.random();
-			if (rand < .6) { 
-				//lonely dot
-				particles = [new EnemyParticle(0, 0)];
+			for (var i:int = 0; i < formationFrequencies.length && i < enemyFormations.length; i ++) {
+				if (rand < formationFrequencies[i]) {
+					break;					
+				}
 			}
-			else if (rand < .8) {
-				//cross	
-				particles = [new EnemyParticle(0, 0), //center
-							new EnemyParticle(-SPACING, 0), //left
-							new EnemyParticle(SPACING, 0), //right
-							new EnemyParticle(0, -SPACING), //top
-							new EnemyParticle(0, SPACING)]; //bottom
-							
-			}
-			else if (rand < .9) {
-				//3-piece triangle
-				particles = [new EnemyParticle(0, 0), //center
-							new EnemyParticle(-SPACING, SPACING), //down left
-							new EnemyParticle(SPACING, SPACING)]; //down right
-			}
-			else if (rand < 1) {
-				//flying V
-				particles = [new EnemyParticle(0, 0), //center
-							new EnemyParticle(-SPACING, SPACING), //down left
-							new EnemyParticle(SPACING, SPACING), //down right 
-							new EnemyParticle(-SPACING * 2, SPACING * 2), //down left x 2
-							new EnemyParticle(SPACING * 2, SPACING * 2)]; //down right x 2
+			//create the particles based on the formation layout
+			var formation:Array = enemyFormations[i];
+			var particles:Array = [];
+			for each (var p:Point in formation) {
+				particles.push(new EnemyParticle(p.x * PARTICLE_SPACING, p.y * PARTICLE_SPACING));
 			}
 			
 			return particles;
+		}
+		
+		private function initStandardFormations():void {
+			//how often each of the standard formations spawns
+			DEFAULT_FREQUENCIES = [.6, .8, .9, 1];
+			
+			//basic single point
+			STANDARD_FORMATIONS = [[new Point(0, 0)]];
+			
+			//cross
+			STANDARD_FORMATIONS.push([new Point(0, 0),//center
+							new Point(-1, 0), //left
+							new Point(1, 0), //right
+							new Point(0, -1), //top
+							new Point(0, 1)]); //bottom
+					
+			//triangle		
+			STANDARD_FORMATIONS.push([new Point(0, 0), //center
+							new Point(-1, 1), //down left
+							new Point(1, 1)]); //down right
+			
+			//5-piece flying V
+			STANDARD_FORMATIONS.push([new Point(0, 0), //center
+							new Point(-1, 1), //down left
+							new Point(1, 1), //down right 
+							new Point(-1 * 2, 1 * 2), //down left x 2
+							new Point(1 * 2, 1 * 2)]); //down right x 2
 		}
 	}
 }
