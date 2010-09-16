@@ -7,6 +7,8 @@ package com.exploid
 		
 		public static const ST_INVINCIBLE:String = "invincible";
 		
+		private static const MAX_SPAWN_DELAY:int = 3;
+		private var _spawnDelay:Number;
 		
 		public static const MAX_INVINCIBLE_TIME:Number = 2;
 		private var _invAge:Number;
@@ -20,6 +22,8 @@ package com.exploid
 			this.canExplode = false;
 			this.state = ST_ALIVE;
 			this.lives = ExGlobal.PLAYER_STARTING_LIVES;
+			
+			this.radius = 6;
 		}
 		
 		override public function update():void {
@@ -38,8 +42,11 @@ package com.exploid
 					this.y -= 5;
 				}
 				
-				if(ExGlobal.input.isJustPressed(Keyboard.SPACE)) {
-					this.state = ExParticle.ST_EXPLODE;
+				if (this.state == ExParticle.ST_ALIVE) {
+					//can only explode once invuln timer expires
+					if(ExGlobal.input.isJustPressed(Keyboard.SPACE)) {
+						this.state = ExParticle.ST_EXPLODE;
+					}
 				}
 			}
 			
@@ -49,6 +56,9 @@ package com.exploid
 				if(_invAge >= MAX_INVINCIBLE_TIME) {
 					this.state = ExParticle.ST_ALIVE;
 				}
+			}
+			else if (this.state == ST_DEAD) {
+				_spawnDelay += ExGlobal.elapsed;
 			}
 			
 			super.update();
@@ -62,6 +72,7 @@ package com.exploid
 				case ExParticle.ST_ALIVE:
 					break;
 				case ExParticle.ST_DEAD:
+					_spawnDelay = 0;
 					break;
 				case ST_INVINCIBLE:
 					_invAge = 0;
@@ -75,14 +86,20 @@ package com.exploid
 		 * @return True if player is respawned.
 		 */		
 		public function respawn():Boolean {
-			if(this.lives <= 0) {
+			
+			if (this.lives <= 0) {
 				return false;
 			}
-			lives --;
-			_invAge = 0;
-			state = ExPlayer.ST_INVINCIBLE;
-			isSolid = true;
-			return true;
+			else if (_spawnDelay < MAX_SPAWN_DELAY) {
+				return false;
+			}
+			else {
+				lives --;
+				_invAge = 0;
+				state = ExPlayer.ST_INVINCIBLE;
+				isSolid = true;
+				return true;
+			}
 		}
 		
 		/**

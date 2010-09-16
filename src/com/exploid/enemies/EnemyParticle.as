@@ -11,6 +11,7 @@ package com.exploid.enemies
 			this.isSolid = false;
 			this.canExplode = true;
 			this.state = ExParticle.ST_ALIVE;
+			this.radius = 20;
 		}
 	}
 }

@@ -40,7 +40,14 @@ package com.exploid
 		}
 		
 		public function update():void {
+			//update all particles
 			particles.update();
+			
+			//player is special and should be updated even if it's
+			//not in the particle group
+			if (particles.members.indexOf(player) == -1) {
+				player.update();
+			}
 			
 			// check if respawn is needed / possible
 			if(player.state == ExParticle.ST_DEAD && this.player.respawn()) {

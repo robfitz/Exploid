@@ -21,14 +21,14 @@ package com.exploid.emitters
 		 * before travelling inward. set to a negative number to see the
 		 * spawns on-screen for debugging, or a positive number for 
 		 * the proper player experience */
-		private static const EDGE_DIST:int = 30;
+		private static const EDGE_DIST:int = 60;
 		/** distance between each particle of an enemy ship */
-		private static const PARTICLE_SPACING:int = 16;
+		private static const PARTICLE_SPACING:int = 32;
 		
 		/** minimum velocity of an enemy */
-		private static const V_MIN:Number = 5;
+		private static const V_MIN:Number = 15;
 		/** maximum velocity of an enemy */
-		private static const V_MAX:Number = 30;
+		private static const V_MAX:Number = 45;
 		
 		
 		private var enemyFormations:Array;
